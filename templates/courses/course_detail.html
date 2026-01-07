@@ -1,0 +1,68 @@
+{% extends 'base.html' %} {% block content %}
+<div class="course-detail">
+  <div class="course-header">
+    {% if course.cover %}
+    <div class="course-cover-large">
+      <img src="{{ course.cover.url }}" alt="{{ course.title }}" />
+    </div>
+    {% endif %}
+
+    <h1 class="course-title">{{ course.title }}</h1>
+    <div class="course-meta">
+      <span>Автор: {{ course.author.username }}</span>
+      <span class="status-badge status-{{ course.status }}">{{ course.get_status_display }}</span>
+      {% if user.is_authenticated and user != course.author %} {% if is_enrolled %}
+      <span
+        class="status-badge"
+        style="background-color: var(--color-success, #28a745); color: white"
+        >Вы записаны</span
+      >
+      {% else %}
+      <form action="{% url 'enroll_course' course.pk %}" method="post" style="display: inline">
+        {% csrf_token %}
+        <button type="submit" class="btn btn--primary">Записаться на курс</button>
+      </form>
+      {% endif %} {% endif %}
+    </div>
+  </div>
+
+  <div class="course-description">
+    <h2>О курсе</h2>
+    <p>{{ course.description }}</p>
+  </div>
+
+  <div class="course-chapters">
+    <h2>Содержание курса</h2>
+    {% if course.chapters.all %}
+    <div class="chapter-list">
+      {% for chapter in course.chapters.all %}
+      <div class="chapter-item">
+        <div class="chapter-header">
+          <span class="chapter-number">{{ forloop.counter }}</span>
+          <h3 class="chapter-title">{{ chapter.title }}</h3>
+        </div>
+        <div class="chapter-content">
+          <!-- In future: link to chapter content or expand -->
+          <p>{{ chapter.description|truncatewords:20 }}</p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% else %}
+    <p>В этом курсе пока нет глав.</p>
+    {% endif %}
+  </div>
+
+  {% if user == course.author %}
+  <div class="author-actions" style="margin-top: 2rem">
+    <a
+      href="{% url 'admin:courses_course_change' course.id %}"
+      class="btn btn--secondary"
+      target="_blank"
+      >Редактировать курс</a
+    >
+  </div>
+  {% endif %}
+</div>
+
+{% endblock %}

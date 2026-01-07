@@ -1,0 +1,52 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <title>LMS Platform</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+  </head>
+  <body>
+    <header class="header">
+      <div class="header__container">
+        <a href="{% url 'course_list' %}" class="header__logo">StepikClone</a>
+        <nav class="header__nav">
+          <a href="{% url 'course_list' %}">Каталог</a>
+
+          {% if user.is_authenticated %} {% if user.is_author %}
+          <a href="{% url 'create_course' %}" class="btn btn--primary">Создать курс</a>
+          {% else %}
+          <a href="{% url 'apply_author' %}" class="btn btn--outline">Стать автором</a>
+          {% endif %}
+
+          <a
+            href="{% url 'profile' %}"
+            style="display: flex; align-items: center; gap: 8px; color: inherit">
+            {% if user.avatar %}
+            <img
+              src="{{ user.avatar.url }}"
+              alt="Avatar"
+              style="width: 32px; height: 32px; border-radius: 50%; object-fit: cover" />
+            {% else %}
+            <div style="width: 32px; height: 32px; border-radius: 50%; background: #ccc"></div>
+            {% endif %}
+            <span>{{ user.username }}</span>
+          </a>
+
+          <form action="{% url 'logout' %}" method="post" style="display: inline">
+            {% csrf_token %}
+            <button type="submit" class="btn btn--outline" style="border: none; padding: 0 10px">
+              Выйти
+            </button>
+          </form>
+
+          {% else %}
+          <a href="{% url 'login' %}" class="btn btn--outline">Войти</a>
+          <a href="{% url 'register' %}" class="btn btn--primary">Регистрация</a>
+          {% endif %}
+        </nav>
+      </div>
+    </header>
+    <main class="main-container">{% block content %} {% endblock %}</main>
+  </body>
+</html>
