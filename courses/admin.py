@@ -41,3 +41,19 @@ class CourseAdmin(admin.ModelAdmin):
     search_fields = ("title", "description")
     actions = [publish_courses]
     inlines = [ChapterInline]
+
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        if request.user.is_superuser:
+            return qs
+        return qs.filter(author=request.user)
+
+    def has_change_permission(self, request, obj=None):
+        if not obj:
+            return super().has_change_permission(request, obj)
+        return obj.author == request.user or request.user.is_superuser
+
+    def has_delete_permission(self, request, obj=None):
+        if not obj:
+            return super().has_delete_permission(request, obj)
+        return obj.author == request.user or request.user.is_superuser

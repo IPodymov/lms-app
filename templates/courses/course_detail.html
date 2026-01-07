@@ -33,6 +33,11 @@
 
   <div class="course-chapters">
     <h2>Содержание курса</h2>
+    {% if user == course.author %}
+    <div style="margin-bottom: 1rem;">
+      <a href="{% url 'chapter_create' course.pk %}" class="btn btn--primary">+ Добавить главу</a>
+    </div>
+    {% endif %}
     {% if course.chapters.all %}
     <div class="chapter-list">
       {% for chapter in course.chapters.all %}
@@ -40,6 +45,12 @@
         <div class="chapter-header">
           <span class="chapter-number">{{ forloop.counter }}</span>
           <h3 class="chapter-title">{{ chapter.title }}</h3>
+          {% if user == course.author %}
+          <div class="chapter-actions" style="margin-left: auto; display: flex; gap: 8px;">
+            <a href="{% url 'chapter_edit' chapter.pk %}" class="btn btn--outline" style="padding: 6px 12px; font-size: 0.85rem;">Редактировать</a>
+            <a href="{% url 'chapter_delete' chapter.pk %}" class="btn btn--danger" style="padding: 6px 12px; font-size: 0.85rem;">Удалить</a>
+          </div>
+          {% endif %}
         </div>
         <div class="chapter-content">
           <!-- In future: link to chapter content or expand -->
@@ -55,12 +66,7 @@
 
   {% if user == course.author %}
   <div class="author-actions" style="margin-top: 2rem">
-    <a
-      href="{% url 'admin:courses_course_change' course.id %}"
-      class="btn btn--secondary"
-      target="_blank"
-      >Редактировать курс</a
-    >
+    <a href="{% url 'course_edit' course.pk %}" class="btn btn--secondary">Редактировать курс</a>
   </div>
   {% endif %}
 </div>

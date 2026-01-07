@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="auth-form" style="max-width: 500px;">
+    <h2 class="auth-form__title">Удалить главу?</h2>
+    <p style="text-align: center; margin-bottom: 1.5rem; color: var(--color-text-secondary);">
+        Вы уверены, что хотите удалить главу <strong>"{{ object.title }}"</strong> из курса <strong>"{{ object.course.title }}"</strong>?
+    </p>
+    <p style="text-align: center; color: var(--color-danger); margin-bottom: 1.5rem;">
+        Это действие нельзя отменить.
+    </p>
+    
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-actions" style="display: flex; gap: 10px; justify-content: center;">
+            <button type="submit" class="btn btn--danger">Да, удалить</button>
+            <a href="{% url 'course_detail' object.course.pk %}" class="btn btn--outline">Отмена</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

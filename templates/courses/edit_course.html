@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="auth-form profile-container">
+    <h2 class="auth-form__title">Редактировать курс</h2>
+    
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% for field in form %}
+            <div class="form-group">
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {{ field.errors }}
+                {% if field.name == 'cover' %}
+                    <input type="file" name="{{ field.name }}" id="{{ field.id_for_label }}" class="form-control">
+                    {% if object.cover %}
+                        <small>Текущая обложка загружена. Оставьте пустым, чтобы не менять.</small>
+                    {% endif %}
+                {% elif field.name == 'description' %}
+                    <textarea name="{{ field.name }}" id="{{ field.id_for_label }}" class="form-control" rows="5">{{ field.value|default:'' }}</textarea>
+                {% else %}
+                    <input type="text" name="{{ field.name }}" id="{{ field.id_for_label }}" class="form-control" value="{{ field.value|default:'' }}">
+                {% endif %}
+            </div>
+        {% endfor %}
+        <div class="form-actions">
+            <button type="submit" class="btn btn--primary">Сохранить изменения</button>
+            <a href="{% url 'course_detail' object.pk %}" class="btn btn--outline" style="margin-left: 10px;">Отмена</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

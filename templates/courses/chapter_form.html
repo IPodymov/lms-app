@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="auth-form profile-container">
+    <h2 class="auth-form__title">{{ action }} главу</h2>
+    <p style="color: var(--color-text-secondary); text-align: center; margin-bottom: 1.5rem;">
+        Курс: <strong>{{ course.title }}</strong>
+    </p>
+    
+    <form method="post">
+        {% csrf_token %}
+        {% for field in form %}
+            <div class="form-group">
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {{ field.errors }}
+                {% if field.name == 'description' %}
+                    <textarea name="{{ field.name }}" id="{{ field.id_for_label }}" class="form-control" rows="5" placeholder="Опишите содержание главы...">{{ field.value|default:'' }}</textarea>
+                {% elif field.name == 'order' %}
+                    <input type="number" name="{{ field.name }}" id="{{ field.id_for_label }}" class="form-control" value="{{ field.value|default:'0' }}" min="0">
+                    <div class="form-help">Чем меньше число, тем выше глава в списке</div>
+                {% else %}
+                    <input type="text" name="{{ field.name }}" id="{{ field.id_for_label }}" class="form-control" value="{{ field.value|default:'' }}" placeholder="Название главы">
+                {% endif %}
+            </div>
+        {% endfor %}
+        <div class="form-actions" style="display: flex; gap: 10px; justify-content: center;">
+            <button type="submit" class="btn btn--primary">{{ action }}</button>
+            <a href="{% url 'course_detail' course.pk %}" class="btn btn--outline">Отмена</a>
+        </div>
+    </form>
+</div>
+{% endblock %}
