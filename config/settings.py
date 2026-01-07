@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/6.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/6.0/ref/settings/
 """
+
 import os
 from dotenv import load_dotenv
 
@@ -20,7 +21,6 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
@@ -28,9 +28,21 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-4p%7=c431ivpd0*yy4be3h^i5jm*+m(r&+u1p-h5fr#bjuy()-"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get("DEBUG", "False") == "True"
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "lms-app-production-ceea.up.railway.app",
+    "127.0.0.1",
+    "localhost",
+]
+if "ALLOWED_HOSTS" in os.environ:
+    ALLOWED_HOSTS.extend(os.environ["ALLOWED_HOSTS"].split(","))
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://lms-app-production-ceea.up.railway.app",
+]
+if "CSRF_TRUSTED_ORIGINS" in os.environ:
+    CSRF_TRUSTED_ORIGINS.extend(os.environ["CSRF_TRUSTED_ORIGINS"].split(","))
 
 
 # Application definition
@@ -42,16 +54,17 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    'cloudinary', # Put cloudinary before apps interacting with it if specific overwrites needed, but for storage usually safe.
-    'cloudinary_storage', # Usually storage comes last to override staticfiles if needed, but docs say before staticfiles.
-                          # However, standard ImageField + cloudinary_storage needs it installed.
-                          # While CloudinaryField needs 'cloudinary'.
+    "cloudinary",  # Put cloudinary before apps interacting with it if specific overwrites needed, but for storage usually safe.
+    "cloudinary_storage",  # Usually storage comes last to override staticfiles if needed, but docs say before staticfiles.
+    # However, standard ImageField + cloudinary_storage needs it installed.
+    # While CloudinaryField needs 'cloudinary'.
     "users",
     "courses",
 ]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -126,6 +139,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = "static/"
+STATIC_ROOT = BASE_DIR / "staticfiles"
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 STATICFILES_DIRS = [
     BASE_DIR / "static",
@@ -151,42 +166,35 @@ try:
 except ImportError:
     pass
 
-CLOUDINARY_URL = os.environ.get('CLOUDINARY_URL')
+CLOUDINARY_URL = os.environ.get("CLOUDINARY_URL")
 
 if CLOUDINARY_URL:
     # Format: cloudinary://<api_key>:<api_secret>@<cloud_name>
-    # We can trust cloudinary library to handle the env var if we set it, 
+    # We can trust cloudinary library to handle the env var if we set it,
     # but for django-cloudinary-storage we need the dict.
-    
+
     # Removing 'cloudinary://'
-    auth_part, cloud_name = CLOUDINARY_URL.replace('cloudinary://', '').split('@')
-    api_key, api_secret = auth_part.split(':')
-    
+    auth_part, cloud_name = CLOUDINARY_URL.replace("cloudinary://", "").split("@")
+    api_key, api_secret = auth_part.split(":")
+
     CLOUDINARY_STORAGE = {
-        'CLOUD_NAME': cloud_name,
-        'API_KEY': api_key,
-        'API_SECRET': api_secret,
+        "CLOUD_NAME": cloud_name,
+        "API_KEY": api_key,
+        "API_SECRET": api_secret,
     }
-    
+
     # Configure cloudinary SDK directly
-    cloudinary.config(
-        cloud_name=cloud_name,
-        api_key=api_key,
-        api_secret=api_secret
-    )
-    
+    cloudinary.config(cloud_name=cloud_name, api_key=api_key, api_secret=api_secret)
+
 else:
     CLOUDINARY_STORAGE = {
-        'CLOUD_NAME': 'your_cloud_name',
-        'API_KEY': 'your_api_key',
-        'API_SECRET': 'your_api_secret',
+        "CLOUD_NAME": "your_cloud_name",
+        "API_KEY": "your_api_key",
+        "API_SECRET": "your_api_secret",
     }
 
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
 
 
-MEDIA_URL = '/media/'
+MEDIA_URL = "/media/"
 
-
-
-STATIC_URL = "static/"
