@@ -20,7 +20,8 @@ class AuthorApplication(models.Model):
         verbose_name="Пользователь",
     )
     message = models.TextField(
-        verbose_name="Сообщение / Опыт работы", help_text="Почему вы хотите стать автором?"
+        verbose_name="Сообщение / Опыт работы",
+        help_text="Почему вы хотите стать автором?",
     )
     status = models.CharField(
         max_length=20, choices=STATUS_CHOICES, default="pending", verbose_name="Статус"

@@ -3,10 +3,9 @@ from django.contrib.auth import views as auth_views
 from .views import RegisterView, ProfileView, CustomPasswordChangeView
 
 urlpatterns = [
-    path('register/', RegisterView.as_view(), name='register'),
-    path('login/', auth_views.LoginView.as_view(), name='login'),
-    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
-    path('profile/', ProfileView.as_view(), name='profile'),
-    path('password-change/', CustomPasswordChangeView.as_view(), name='password_change'),
+    path("register/", RegisterView.as_view(), name="register"),
+    path("login/", auth_views.LoginView.as_view(), name="login"),
+    path("logout/", auth_views.LogoutView.as_view(), name="logout"),
+    path("profile/", ProfileView.as_view(), name="profile"),
+    path("password-change/", CustomPasswordChangeView.as_view(), name="password_change"),
 ]
-

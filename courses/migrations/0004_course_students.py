@@ -7,14 +7,19 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('courses', '0003_course_cover_chapter'),
+        ("courses", "0003_course_cover_chapter"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='course',
-            name='students',
-            field=models.ManyToManyField(blank=True, related_name='enrolled_courses', to=settings.AUTH_USER_MODEL, verbose_name='Студенты'),
+            model_name="course",
+            name="students",
+            field=models.ManyToManyField(
+                blank=True,
+                related_name="enrolled_courses",
+                to=settings.AUTH_USER_MODEL,
+                verbose_name="Студенты",
+            ),
         ),
     ]

@@ -1,24 +1,47 @@
 :root {
-  /* Stepik-like Palette */
-  --color-primary: #66bb6a; /* Основной зеленый */
-  --color-primary-hover: #57a05b;
-  --color-bg-body: #f5f7f8; /* Светло-серый фон страницы */
+  /* Modern Palette */
+  --color-primary: #10b981; /* Emerald 500 */
+  --color-primary-hover: #059669; /* Emerald 600 */
+  --color-primary-subtle: #d1fae5; /* Emerald 100 */
+  --color-secondary: #6366f1; /* Indigo 500 */
+  
+  --color-bg-body: #f9fafb; /* Gray 50 */
   --color-bg-card: #ffffff;
-  --color-text-main: #1d1e21;
-  --color-text-secondary: #6e7a85;
-  --color-border: #e0e5e9;
-  --color-danger: #d9534f;
-  --color-success: #28a745;
+  --color-bg-secondary: #f3f4f6;
+  
+  --color-text-main: #1f2937; /* Gray 800 */
+  --color-text-secondary: #4b5563; /* Gray 600 */
+  --color-text-light: #9ca3af; /* Gray 400 */
+  
+  --color-border: #e5e7eb; /* Gray 200 */
+  --color-border-hover: #d1d5db; /* Gray 300 */
+  
+  --color-danger: #ef4444; /* Red 500 */
+  --color-success: #10b981; /* Emerald 500 */
+  --color-warning: #f59e0b; /* Amber 500 */
 
   /* Layout */
-  --container-width: 1100px;
+  --container-width: 1200px;
+  
+  --space-xs: 4px;
   --space-s: 8px;
   --space-m: 16px;
   --space-l: 24px;
-  --radius-s: 4px;
-  --radius-m: 8px;
+  --space-xl: 32px;
+  --space-xxl: 48px;
+  
+  --radius-s: 6px;
+  --radius-m: 12px;
+  --radius-l: 16px;
+  --radius-full: 9999px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-input: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-primary: 0 4px 14px 0 rgba(16, 185, 129, 0.39);
 
   /* Fonts */
-  --font-main: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
-    sans-serif;
+  --font-main: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }

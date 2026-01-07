@@ -8,29 +8,60 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('courses', '0002_initial'),
+        ("courses", "0002_initial"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='course',
-            name='cover',
-            field=cloudinary.models.CloudinaryField(blank=True, max_length=255, null=True, verbose_name='image'),
+            model_name="course",
+            name="cover",
+            field=cloudinary.models.CloudinaryField(
+                blank=True, max_length=255, null=True, verbose_name="image"
+            ),
         ),
         migrations.CreateModel(
-            name='Chapter',
+            name="Chapter",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=200, verbose_name='Название главы')),
-                ('description', models.TextField(blank=True, verbose_name='Описание')),
-                ('order', models.PositiveIntegerField(default=0, verbose_name='Порядковый номер')),
-                ('created_at', models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')),
-                ('course', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='chapters', to='courses.course', verbose_name='Курс')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "title",
+                    models.CharField(max_length=200, verbose_name="Название главы"),
+                ),
+                ("description", models.TextField(blank=True, verbose_name="Описание")),
+                (
+                    "order",
+                    models.PositiveIntegerField(
+                        default=0, verbose_name="Порядковый номер"
+                    ),
+                ),
+                (
+                    "created_at",
+                    models.DateTimeField(
+                        auto_now_add=True, verbose_name="Дата создания"
+                    ),
+                ),
+                (
+                    "course",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="chapters",
+                        to="courses.course",
+                        verbose_name="Курс",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Глава',
-                'verbose_name_plural': 'Главы',
-                'ordering': ['order', 'created_at'],
+                "verbose_name": "Глава",
+                "verbose_name_plural": "Главы",
+                "ordering": ["order", "created_at"],
             },
         ),
     ]

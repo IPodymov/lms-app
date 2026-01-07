@@ -7,35 +7,93 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='AuthorApplication',
+            name="AuthorApplication",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('message', models.TextField(help_text='Почему вы хотите стать автором?', verbose_name='Сообщение / Опыт работы')),
-                ('status', models.CharField(choices=[('pending', 'На рассмотрении'), ('approved', 'Одобрено'), ('rejected', 'Отклонено')], default='pending', max_length=20, verbose_name='Статус')),
-                ('created_at', models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "message",
+                    models.TextField(
+                        help_text="Почему вы хотите стать автором?",
+                        verbose_name="Сообщение / Опыт работы",
+                    ),
+                ),
+                (
+                    "status",
+                    models.CharField(
+                        choices=[
+                            ("pending", "На рассмотрении"),
+                            ("approved", "Одобрено"),
+                            ("rejected", "Отклонено"),
+                        ],
+                        default="pending",
+                        max_length=20,
+                        verbose_name="Статус",
+                    ),
+                ),
+                (
+                    "created_at",
+                    models.DateTimeField(
+                        auto_now_add=True, verbose_name="Дата создания"
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Заявка на авторство',
-                'verbose_name_plural': 'Заявки на авторство',
+                "verbose_name": "Заявка на авторство",
+                "verbose_name_plural": "Заявки на авторство",
             },
         ),
         migrations.CreateModel(
-            name='Course',
+            name="Course",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=200, verbose_name='Название курса')),
-                ('description', models.TextField(verbose_name='Описание')),
-                ('status', models.CharField(choices=[('draft', 'Черновик'), ('moderation', 'На модерации'), ('published', 'Опубликован')], default='draft', max_length=20, verbose_name='Статус')),
-                ('created_at', models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "title",
+                    models.CharField(max_length=200, verbose_name="Название курса"),
+                ),
+                ("description", models.TextField(verbose_name="Описание")),
+                (
+                    "status",
+                    models.CharField(
+                        choices=[
+                            ("draft", "Черновик"),
+                            ("moderation", "На модерации"),
+                            ("published", "Опубликован"),
+                        ],
+                        default="draft",
+                        max_length=20,
+                        verbose_name="Статус",
+                    ),
+                ),
+                (
+                    "created_at",
+                    models.DateTimeField(
+                        auto_now_add=True, verbose_name="Дата создания"
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Курс',
-                'verbose_name_plural': 'Курсы',
+                "verbose_name": "Курс",
+                "verbose_name_plural": "Курсы",
             },
         ),
     ]

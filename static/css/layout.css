@@ -1,8 +1,12 @@
 .header {
   background: #ffffff;
-  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-sm);
   padding: var(--space-m) 0;
-  margin-bottom: var(--space-l);
+  margin-bottom: var(--space-xl);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  border-bottom: 1px solid var(--color-border);
 }
 
 .header__container {
@@ -11,24 +15,25 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 var(--space-m);
+  padding: 0 var(--space-l);
 }
 
 .header__logo {
   font-size: 1.5rem;
-  font-weight: bold;
+  font-weight: 800;
   color: var(--color-text-main);
+  letter-spacing: -0.025em;
 }
 
 .header__nav {
   display: flex;
   align-items: center;
-  gap: var(--space-m);
+  gap: var(--space-l);
 }
 
 .main-container {
   max-width: var(--container-width);
   margin: 0 auto;
-  padding: 0 var(--space-m);
+  padding: 0 var(--space-l);
   min-height: 80vh;
 }

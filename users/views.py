@@ -13,14 +13,13 @@ class RegisterView(CreateView):
 
 class ProfileView(LoginRequiredMixin, UpdateView):
     form_class = UserUpdateForm
-    template_name = 'users/profile.html'
-    success_url = reverse_lazy('profile')
+    template_name = "users/profile.html"
+    success_url = reverse_lazy("profile")
 
     def get_object(self):
         return self.request.user
 
 
 class CustomPasswordChangeView(LoginRequiredMixin, PasswordChangeView):
-    template_name = 'users/password_change.html'
-    success_url = reverse_lazy('profile')
-
+    template_name = "users/password_change.html"
+    success_url = reverse_lazy("profile")

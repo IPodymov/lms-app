@@ -7,7 +7,9 @@ class AuthorApplicationForm(forms.ModelForm):
         model = AuthorApplication
         fields = ["message"]
         widgets = {
-            "message": forms.Textarea(attrs={"rows": 4, "placeholder": "Расскажите о себе..."}),
+            "message": forms.Textarea(
+                attrs={"rows": 4, "placeholder": "Расскажите о себе..."}
+            ),
         }
 
 

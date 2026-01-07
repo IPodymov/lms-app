@@ -1,33 +1,60 @@
 .btn {
-    display: inline-block;
-    padding: 10px 20px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 24px;
     border-radius: var(--radius-s);
     font-size: 0.95rem;
-    font-weight: 500;
+    font-weight: 600;
     cursor: pointer;
     border: 1px solid transparent;
-    transition: all 0.2s;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     text-align: center;
+    text-decoration: none;
+    line-height: 1.5;
+}
+
+.btn:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
 }
 
 .btn--primary {
     background-color: var(--color-primary);
     color: white;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
 }
 
 .btn--primary:hover {
     background-color: var(--color-primary-hover);
     color: white;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.btn--primary:active {
+    transform: translateY(0);
 }
 
 .btn--outline {
-    background-color: transparent;
+    background-color: white;
     border-color: var(--color-border);
     color: var(--color-text-main);
 }
 
 .btn--outline:hover {
     border-color: var(--color-text-secondary);
+    background-color: var(--color-bg-body);
+    color: var(--color-text-main);
+}
+
+.btn--secondary {
+    background-color: var(--color-bg-secondary);
+    color: var(--color-text-main);
+}
+
+.btn--secondary:hover {
+    background-color: var(--color-border);
 }
 
 .btn--danger {
@@ -35,7 +62,11 @@
     color: white;
 }
 
+.btn--danger:hover {
+    opacity: 0.9;
+}
+
 .btn--block {
-    display: block;
+    display: flex;
     width: 100%;
 }

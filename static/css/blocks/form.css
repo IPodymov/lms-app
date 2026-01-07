@@ -1,42 +1,63 @@
 .auth-form {
-    max-width: 400px;
-    margin: 40px auto;
+    max-width: 440px;
+    margin: 60px auto;
     background: white;
-    padding: var(--space-l);
-    border-radius: var(--radius-m);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-    border: 1px solid var(--color-border);
+    padding: var(--space-xl);
+    border-radius: var(--radius-l);
+    box-shadow: var(--shadow-xl, 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04));
+    border: none;
 }
 
 .auth-form__title {
     text-align: center;
-    margin-bottom: var(--space-l);
+    margin-bottom: var(--space-xl);
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: var(--color-text-main);
 }
 
 .form-group {
-    margin-bottom: var(--space-m);
+    margin-bottom: var(--space-l);
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: var(--space-xs);
+    font-weight: 500;
+    color: var(--color-text-secondary);
+    font-size: 0.95rem;
 }
 
 .form-control {
     width: 100%;
-    padding: 10px;
+    padding: 12px 16px;
     border: 1px solid var(--color-border);
     border-radius: var(--radius-s);
     font-size: 1rem;
-    transition: border-color 0.2s;
+    transition: all 0.2s ease;
+    background-color: #fff;
+    color: var(--color-text-main);
+    box-shadow: var(--shadow-input);
+}
+
+.form-control:hover {
+    border-color: var(--color-border-hover);
 }
 
 .form-control:focus {
     outline: none;
     border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px var(--color-primary-subtle);
 }
 
 .form-help {
-    font-size: 0.8rem;
-    color: var(--color-text-secondary);
-    margin-top: 4px;
+    font-size: 0.85rem;
+    color: var(--color-text-light);
+    margin-top: 6px;
 }
 
 .form-actions {
-    margin-top: var(--space-l);
+    margin-top: var(--space-xl);
+    display: flex;
+    justify-content: center;
 }

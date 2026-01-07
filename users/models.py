@@ -11,7 +11,7 @@ class User(AbstractUser):
 
     is_student = models.BooleanField(default=True, verbose_name="Студент")
     is_author = models.BooleanField(default=False, verbose_name="Автор курсов")
-    avatar = CloudinaryField('avatar', folder='avatars/', blank=True, null=True)
+    avatar = CloudinaryField("avatar", folder="avatars/", blank=True, null=True)
 
     def __str__(self):
 

@@ -11,11 +11,11 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
 import os
+from pathlib import Path
 from dotenv import load_dotenv
+import dj_database_url
 
 load_dotenv()
-
-from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -54,8 +54,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "cloudinary",  # Put cloudinary before apps interacting with it if specific overwrites needed, but for storage usually safe.
-    "cloudinary_storage",  # Usually storage comes last to override staticfiles if needed, but docs say before staticfiles.
+    "cloudinary",  # Put cloudinary before apps interacting with it
+    "cloudinary_storage",  # Usually storage comes last to override staticfiles
     # However, standard ImageField + cloudinary_storage needs it installed.
     # While CloudinaryField needs 'cloudinary'.
     "users",
@@ -97,10 +97,10 @@ WSGI_APPLICATION = "config.wsgi.application"
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
+    "default": dj_database_url.config(
+        default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}",
+        conn_max_age=600,
+    )
 }
 
 
@@ -154,9 +154,6 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 AUTH_USER_MODEL = "users.User"
 
-import os
-import io
-
 LOGIN_REDIRECT_URL = "course_list"
 LOGOUT_REDIRECT_URL = "course_list"
 
@@ -197,4 +194,3 @@ DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
 
 
 MEDIA_URL = "/media/"
-
